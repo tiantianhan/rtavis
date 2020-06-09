@@ -1,0 +1,5 @@
+# Output image files
+*.ppm
+
+# Executables
+*.exe
