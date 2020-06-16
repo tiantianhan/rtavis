@@ -5,9 +5,8 @@
 
 #include "utils\vec3.hpp"
 #include "utils\color.hpp"
-#include "tests\test.hpp"
+#include "..\tests\test.hpp"
 #include "ray.hpp"
-//TODO: Organize source files
 
 Color ray_color_gradient(const Ray& r){
   Vec3 unit_direction = unit_vector(r.direction());

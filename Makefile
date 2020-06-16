@@ -1,10 +1,12 @@
 #Main makefile
 #Ref: http://nuclear.mutantstargoat.com/articles/make/#a-makefile-for-99-of-your-programs
+#TODO: Compile to build folder
+#TODO: Fix make clean
 CXX = g++
 CXXFLAGS = -g
 
-ccsrc = $(wildcard *.cpp)\
-				$(wildcard utils/*.cpp)\
+ccsrc = $(wildcard src/*.cpp)\
+				$(wildcard src/utils/*.cpp)\
 				$(wildcard tests/*.cpp)
 obj = $(ccsrc:.cpp=.o)
 
