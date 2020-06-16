@@ -48,11 +48,11 @@ inline Vec3 operator*(const Vec3 &u, const Vec3 &v){
 }
 
 inline Vec3 operator*(const Vec3 &v, double t){
-  return v * t;
+  return Vec3(v.e[0] * t, v.e[1] * t, v.e[2] * t);
 }
 
 inline Vec3 operator*(double t, const Vec3 &v){
-  return t * v;
+  return v * t; //per element multiplication is commutative
 }
 
 inline Vec3 operator/(const Vec3 &v, double t){
