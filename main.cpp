@@ -1,32 +1,33 @@
 // Image output test
 #include <iostream>
 #include <fstream>
+#include "utils\vec3.hpp"
+#include "utils\color.hpp"
+#include "tests\test.hpp"
 
 int main(void){
   const int image_width = 256;
   const int image_height = 256;
 
   std::ofstream out_image;
-  out_image.open("test.ppm");
+  out_image.open("out\\test.ppm");
 
   out_image << "P3\n" << image_width << ' ' << image_height << "\n255\n";
   for(int j = image_height-1; j >= 0; --j){
     std::cout << "\rScanlines remaining: " << j << ' ' << std::flush;
 
     for(int i = 0; i < image_width; ++i){
-      auto r = double(i) / (image_width - 1);
-      auto g = double(j) / (image_height - 1);
-      auto b = 0.25;
+      Color pixel_color(double(i) / (image_width - 1), double(j) / (image_height - 1), 0.25);
 
-      int ir = static_cast<int>(255.999 * r);
-      int ig = static_cast<int>(255.999 * g);
-      int ib = static_cast<int>(255.999 * b);
-
-      out_image << ir << ' ' << ig << ' ' << ib << ' ';
+      write_color(out_image, pixel_color);
     }
     out_image << '\n';
   }
-
   std::cout << "\nDone.\n";
+
+  // Test
+  // std::cout << "\nTesting...\n";
+  // test();
+
   return 0;
 }
