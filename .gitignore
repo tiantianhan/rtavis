@@ -1,5 +1,9 @@
 # Output image files
 *.ppm
 
+# Temporary
+*.gch
+*.o
+
 # Executables
 *.exe
