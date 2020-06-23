@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "vec3_tests.hpp"
-#include "..\utils\vec3.hpp"
+#include "..\src\utils\vec3.hpp"
 
 bool test_init(bool verbose);
 bool test_access(bool verbose);

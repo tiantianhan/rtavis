@@ -1,7 +1,7 @@
 #ifndef VEC3_HPP
 #define VEC3_HPP
 
-#include <ostream>
+#include <iostream>
 
 class Vec3{
   public:
