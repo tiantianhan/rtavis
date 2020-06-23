@@ -1,24 +1,27 @@
 #Main makefile
 #Ref: http://nuclear.mutantstargoat.com/articles/make/#a-makefile-for-99-of-your-programs
+#Ref: https://riptutorial.com/makefile/example/21376/building-from-different-source-folders-to-different-target-folders
 #TODO: Compile to build folder
-#TODO: Fix make clean
+#TODO: Make clean only works on windows, replace with general purpose makefile?
 CXX = g++
 CXXFLAGS = -g
 
 ccsrc = $(wildcard src/*.cpp)\
-				$(wildcard src/utils/*.cpp)\
-				$(wildcard tests/*.cpp)
+		$(wildcard src/utils/*.cpp)\
+		$(wildcard tests/*.cpp)
 obj = $(ccsrc:.cpp=.o)
+target = main.exe
 
 #DFLAGS = -lGL -lglut -lpng -lz -lm
 DFLAGS = -lm
 
-main: $(obj)
+$(target): $(obj)
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(DFLAGS)
 
 run:
-		main
+	$(target)
 
 .PHONY: clean
 clean:
-	-rm -f $(obj) main
+	del $(subst /,\\,$(obj))
+	del $(target)
