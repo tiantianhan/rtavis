@@ -23,6 +23,8 @@ private:
   size_t image_width;
   size_t image_height;
   double aspect_ratio;
+
+  Point3 origin;
   double viewport_height;
   double viewport_width;
   double focal_length;
