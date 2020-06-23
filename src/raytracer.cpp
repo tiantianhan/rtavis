@@ -13,12 +13,12 @@ Color ray_color_gradient(const Ray& r){
 
 double hit_sphere(const Point3& center, double radius, const Ray& r){
   Vec3 oc = r.origin() - center;
-  double a = dot(r.direction(), r.direction());
-  double b = 2 * dot(r.direction(), oc);
-  double c = dot(oc, oc) - radius * radius;
-  double discriminant = b * b  - 4 * a * c;
+  double a = r.direction().length_squared(); //dot(r.direction(), r.direction())
+  double half_b = dot(r.direction(), oc);
+  double c = oc.length_squared() - radius * radius; //dot(oc, oc) - radius * radius
+  double discriminant = half_b * half_b  - a * c; //Simplified quadradic equation
   if (discriminant > 0){
-    return (-b - sqrt(discriminant)) / (2.0 * a);
+    return (-half_b - sqrt(discriminant)) / a;
   } else {
     return -1.0;
   }
