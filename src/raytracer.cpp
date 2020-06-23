@@ -11,18 +11,25 @@ Color ray_color_gradient(const Ray& r){
   return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
 }
 
-bool hit_sphere(const Point3& center, double radius, const Ray& r){
+double hit_sphere(const Point3& center, double radius, const Ray& r){
   Vec3 oc = r.origin() - center;
   double a = dot(r.direction(), r.direction());
   double b = 2 * dot(r.direction(), oc);
   double c = dot(oc, oc) - radius * radius;
   double discriminant = b * b  - 4 * a * c;
-  return (discriminant > 0);
+  if (discriminant > 0){
+    return (-b - sqrt(discriminant)) / (2.0 * a);
+  } else {
+    return -1.0;
+  }
 }
 
 Color ray_color_sphere(const Ray& r){
-  if(hit_sphere(Point3(0, 0, -1), 0.5, r)){
-    return Color(1, 0, 0); //Red
+  Point3 sphere_center(0, 0, -1);
+  double ray_t = hit_sphere(sphere_center, 0.5, r);
+  if(ray_t > 0.0){
+    Vec3 n = unit_vector(r.at(ray_t) - sphere_center);
+    return 0.5 * Color(n.x() + 1, n.y() + 1, n.z() + 1);
   }
   Vec3 unit_direction = unit_vector(r.direction());
   double t = 0.5 * (unit_direction.y() + 1.0); // Change y range to [0, 1]
