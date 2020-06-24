@@ -1,9 +1,10 @@
 #ifndef RAYTRACER_HPP
 #define RAYTRACER_HPP
 #include <iostream>
-#include <cmath>
+
+#include "ray.hpp"
 #include "utils\vec3.hpp"
-#include "hittable\sphere.hpp"
+#include "hittable\hittable_list.hpp"
 
 class Raytracer{
 public:
@@ -30,7 +31,7 @@ private:
   double viewport_width;
   double focal_length;
 
-  Sphere sphere;
+  HittableList world;
 
   int initialize();
 };
