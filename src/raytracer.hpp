@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cmath>
 #include "utils\vec3.hpp"
+#include "hittable\sphere.hpp"
 
 class Raytracer{
 public:
@@ -28,6 +29,8 @@ private:
   double viewport_height;
   double viewport_width;
   double focal_length;
+
+  Sphere sphere;
 
   int initialize();
 };
