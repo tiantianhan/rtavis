@@ -1,10 +1,11 @@
 #include "color.hpp"
 
 #include <iostream>
-#include "Vec3.hpp"
+#include "vec3.hpp"
+#include "utils.hpp"
 
 void write_color(std::ostream &out, Color pixel_color){
-  out << static_cast<int>(255.999 * pixel_color.x()) << ' '
-      << static_cast<int>(255.999 * pixel_color.y()) << ' '
-      << static_cast<int>(255.999 * pixel_color.z()) << '\n';
+  out << static_cast<int>(256 * clamp(pixel_color.x(), 0, 0.999)) << ' '
+      << static_cast<int>(256 * clamp(pixel_color.y(), 0, 0.999)) << ' '
+      << static_cast<int>(256 * clamp(pixel_color.z(), 0, 0.999)) << '\n';
 }
