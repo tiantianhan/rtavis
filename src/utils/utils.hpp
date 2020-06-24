@@ -40,7 +40,7 @@ inline double random_double(double min, double max){
 
 //TODO: create includes folder?
 #include "..\ray.hpp"
-#include "utils\vec3.hpp"
-#include "utils\color.hpp"
+#include "vec3.hpp"
+#include "color.hpp"
 
 #endif
