@@ -17,6 +17,27 @@ inline double degrees_to_radians(double degrees){
     return degrees / 180 * pi;
 }
 
+/**
+ * Returns pseudo random number between 0 and 1.
+ * 
+ * @return random double in range [0, 1).
+ */
+inline double random_double(){
+    //random number [0, 1)
+    return rand() / (RAND_MAX  + 1.0);
+}
+
+/**
+ * Returns pseudo random number in given range.
+ * 
+ * @param min lower range of random number, inclusive.
+ * @param max upper range of random number, exclusive.
+ * @return random double in range [min, max).
+ */
+inline double random_double(double min, double max){
+    return min + random_double() * (max - min);
+}
+
 //TODO: create includes folder?
 
 #endif
