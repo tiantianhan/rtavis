@@ -8,6 +8,7 @@ CXXFLAGS = -g
 
 ccsrc = $(wildcard src/*.cpp)\
 		$(wildcard src/utils/*.cpp)\
+		$(wildcard src/hittable/*.cpp)\
 		$(wildcard tests/*.cpp)
 obj = $(ccsrc:.cpp=.o)
 target = main.exe

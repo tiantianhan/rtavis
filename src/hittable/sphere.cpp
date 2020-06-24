@@ -1,5 +1,6 @@
 #include "sphere.hpp"
 #include "..\ray.hpp"
+#include <cmath>
 
 bool Sphere::hit(const Ray& r, double t_min, double t_max, hit_record& rec) const {
     Vec3 oc = r.origin() - center;
