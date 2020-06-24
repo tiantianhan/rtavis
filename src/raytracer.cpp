@@ -37,11 +37,6 @@ Color ray_color(const Ray &r, HittableList world)
 
 int Raytracer::initialize()
 {
-  origin = Point3(0, 0, 0);
-  viewport_height = 2.0;
-  viewport_width = viewport_height * aspect_ratio;
-  focal_length = 1.0;
-
   world.add(make_shared<Sphere>(Point3(0, 0, -1), 0.5));
   world.add(make_shared<Sphere>(Point3(0, -100.5, -1), 100)); //Large sphere as ground plane
 
@@ -51,10 +46,6 @@ int Raytracer::initialize()
 int Raytracer::render(std::ostream &out_image)
 {
   std::cout << "Rendering...\n";
-
-  Vec3 horizontal = Vec3(viewport_width, 0, 0);
-  Vec3 vertical = Vec3(0, viewport_height, 0);
-  Point3 lower_left_corner = origin - horizontal / 2 - vertical / 2 - Vec3(0, 0, focal_length);
 
   out_image << "P3\n"
             << image_width << ' ' << image_height << "\n255\n";
@@ -68,8 +59,7 @@ int Raytracer::render(std::ostream &out_image)
       auto u = double(i) / (image_width - 1);
       auto v = double(j) / (image_height - 1);
 
-      //TODO: Use matrix to transform from viewport to image space?
-      Ray r(origin, lower_left_corner + u * horizontal + v * vertical - origin);
+      Ray r = camera.get_ray(u, v);
 
       //Color pixel_color = ray_color_gradient(r);
       //Color pixel_color = ray_color_sphere(r);
