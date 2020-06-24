@@ -53,18 +53,26 @@ int Raytracer::render(std::ostream &out_image)
   {
     std::cout << "\rScanlines remaining: " << j << ' ' << std::flush;
 
+    double w_increment = 1.0 / (image_width - 1);
+    double h_increment = 1.0 / (image_height - 1);
+
     for (int i = 0; i < image_width; ++i)
     {
       //TODO: Optimize inside of render nested for-loops
-      auto u = double(i) / (image_width - 1);
-      auto v = double(j) / (image_height - 1);
+      auto u = double(i) * w_increment;
+      auto v = double(j) * h_increment;
 
-      Ray r = camera.get_ray(u, v);
+      Color pixel_color(0, 0, 0);
+      for(int s = 0; s < samples_per_pixel; s++){
+        Ray r = camera.get_ray(random_double(u, u + w_increment), 
+                               random_double(v, v + h_increment));
 
-      //Color pixel_color = ray_color_gradient(r);
-      //Color pixel_color = ray_color_sphere(r);
-      Color pixel_color = ray_color(r, world);
+        //Color pixel_color = ray_color_gradient(r);
+        //Color pixel_color = ray_color_sphere(r);
+        pixel_color += ray_color(r, world);
+      }
 
+      pixel_color /= samples_per_pixel;
       write_color(out_image, pixel_color);
     }
     out_image << '\n';

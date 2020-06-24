@@ -13,6 +13,7 @@ public:
   : image_width(image_width)
   , image_height(image_height)
   , aspect_ratio(double(image_width) / image_height)
+  , samples_per_pixel(100)
   , camera(aspect_ratio)
   {
     std::cout << "Initializing raytracer...\n";
@@ -28,6 +29,8 @@ private:
   size_t image_width;
   size_t image_height;
   double aspect_ratio;
+
+  size_t samples_per_pixel;
 
   Camera camera;
 
