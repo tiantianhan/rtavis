@@ -2,8 +2,7 @@
 #define RAYTRACER_HPP
 #include <iostream>
 
-#include "ray.hpp"
-#include "utils\vec3.hpp"
+#include "utils\utils.hpp"
 #include "hittable\hittable_list.hpp"
 
 class Raytracer{

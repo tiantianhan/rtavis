@@ -3,7 +3,6 @@
 #include <iostream>
 
 #include "utils\utils.hpp"
-#include "utils\color.hpp"
 #include "hittable\hittable_list.hpp"
 #include "hittable\sphere.hpp"
 
