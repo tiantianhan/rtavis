@@ -38,6 +38,13 @@ inline double random_double(double min, double max){
     return min + random_double() * (max - min);
 }
 
+inline double clamp(double x, double min, double max){
+    if(x < min) x = min;
+    if(x > max) x = max;
+
+    return x;
+}
+
 //TODO: create includes folder?
 #include "..\ray.hpp"
 #include "vec3.hpp"
