@@ -1,4 +1,16 @@
-// Image output test
+/**
+ * @file rtavis.cpp
+ * @author tina
+ * @brief Raytracer practice project based on the "Raytracing in One Weekend" 
+ * series by Peter Shirley https://raytracing.github.io/
+ * @version 0.1
+ * @date 2020-06-25
+ * 
+ * @copyright https://opensource.org/licenses/MIT
+ * 
+ * This thing can currently render a sphere.
+ * 
+ */
 #include <iostream>
 #include <fstream>
 #include <cmath>
