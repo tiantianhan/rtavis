@@ -13,12 +13,11 @@
  */
 #include <iostream>
 #include <fstream>
-#include <cmath>
-#include <ctime>
 #include <cstring>
 
 #include "..\tests\test.hpp"
 #include "raytracer.hpp"
+#include "utils\timer.hpp"
 
 struct main_inputs{
   char * out_file_path;
@@ -58,12 +57,11 @@ int main(int argc, char *argv[]){
   raytracer.max_ray_recursion_depth = inputs.max_ray_recursion_depth;
 
   // Render
-  std::clock_t start_render = std::clock();
+  Timer render_timer;
 
   raytracer.render(out_image);
 
-  double duration = ((double) (std::clock() - start_render)) / CLOCKS_PER_SEC;
-  std::cout << "Render time: " << duration << " s \n";
+  std::cout << "Render time: " << render_timer << "\n";
 
   // Test   // TODO: Write more tests?
   // std::cout << "\nTesting...\n";
