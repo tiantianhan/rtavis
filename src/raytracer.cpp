@@ -80,6 +80,7 @@ int Raytracer::render(std::ostream &out_image)
       }
 
       pixel_color /= samples_per_pixel;
+      gamma2_correct(pixel_color);
       write_color(out_image, pixel_color);
     }
     out_image << '\n';
