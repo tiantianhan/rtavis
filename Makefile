@@ -11,7 +11,7 @@ ccsrc = $(wildcard src/*.cpp)\
 		$(wildcard src/hittable/*.cpp)\
 		$(wildcard tests/*.cpp)
 obj = $(ccsrc:.cpp=.o)
-target = main.exe
+target = rtavis.exe
 
 #DFLAGS = -lGL -lglut -lpng -lz -lm
 DFLAGS = -lm
@@ -20,7 +20,7 @@ $(target): $(obj)
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(DFLAGS)
 
 run:
-	$(target)
+	$(target) out\\test.ppm 384 -spp 100 -depth 50
 
 .PHONY: clean
 clean:
