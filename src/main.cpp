@@ -8,7 +8,7 @@
 
 int main(void){
   const double aspect_ratio = 16.0 / 9.0;
-  const int image_width = 384;
+  const int image_width = 768;
   const int image_height = round(image_width / aspect_ratio);
 
   std::cout << "Opening output file...\n";
@@ -16,6 +16,9 @@ int main(void){
   out_image.open("out\\test.ppm");
 
   Raytracer raytracer(image_width, image_height);
+  raytracer.samples_per_pixel = 100;
+  raytracer.max_ray_recursion_depth = 50;
+
   raytracer.render(out_image);
   
 

@@ -2,6 +2,8 @@
 #define CAMERA_HPP
 
 #include "utils\utils.hpp"
+#include "utils\vec3.hpp"
+#include "ray.hpp"
 
 class Camera {
     public: 

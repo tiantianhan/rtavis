@@ -3,8 +3,11 @@
 #include <iostream>
 
 #include "utils\utils.hpp"
+#include "utils\vec3.hpp"
+#include "utils\color.hpp"
 #include "hittable\hittable_list.hpp"
 #include "hittable\sphere.hpp"
+#include "ray.hpp"
 
 Color ray_color_gradient(const Ray &r)
 {
@@ -24,13 +27,17 @@ Color ray_color_sphere(const Ray &r, Sphere sphere)
   return ray_color_gradient(r);
 }
 
-Color ray_color(const Ray &r, HittableList world)
+Color ray_color(const Ray &r, HittableList world, int depth)
 {
+  if(depth <= 0){
+    return Color(0, 0, 0); //Rays blocked are shadows
+  }
+
   struct hit_record hit_rec; 
-  if (world.hit(r, 0, 10000, hit_rec))
+  if (world.hit(r, 0.001, infinity, hit_rec))
   {
-    Vec3 n = hit_rec.normal;
-    return 0.5 * Color(n.x() + 1, n.y() + 1, n.z() + 1);
+    Point3 new_target = hit_rec.p + hit_rec.normal + Vec3::random_in_unit_sphere();
+    return 0.5 * ray_color(Ray(hit_rec.p, new_target - hit_rec.p), world, depth - 1); //The more bounces the darker
   }
   return ray_color_gradient(r);
 }
@@ -69,7 +76,7 @@ int Raytracer::render(std::ostream &out_image)
 
         //Color pixel_color = ray_color_gradient(r);
         //Color pixel_color = ray_color_sphere(r);
-        pixel_color += ray_color(r, world);
+        pixel_color += ray_color(r, world, max_ray_recursion_depth);
       }
 
       pixel_color /= samples_per_pixel;

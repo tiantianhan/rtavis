@@ -2,6 +2,7 @@
 #define VEC3_HPP
 
 #include <iostream>
+#include "utils.hpp"
 
 class Vec3{
   public:
@@ -20,8 +21,28 @@ class Vec3{
     Vec3& operator/=(const double t);
 
     double length() const;
-
     double length_squared() const;
+
+    inline static Vec3 random() {
+      return Vec3(random_double(), random_double(), random_double());
+    }
+
+    inline static Vec3 random(double min, double max){
+      return Vec3(random_double(min, max), random_double(min, max), random_double(min, max));
+    }
+
+    inline static Vec3 random_in_unit_sphere(){
+      int tries = 0;
+      Vec3 p(0, 0, 0);
+
+      while(++tries < 1000){
+        Vec3 p = Vec3::random(-1, 1);
+        if(p.length_squared() < 1)
+          return p;
+      }
+
+      return p;
+    }
 
   public:
     double e[3];

@@ -45,9 +45,4 @@ inline double clamp(double x, double min, double max){
     return x;
 }
 
-//TODO: create includes folder?
-#include "..\ray.hpp"
-#include "vec3.hpp"
-#include "color.hpp"
-
 #endif
