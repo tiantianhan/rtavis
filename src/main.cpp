@@ -2,13 +2,14 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
+#include <ctime>
 
 #include "..\tests\test.hpp"
 #include "raytracer.hpp"
 
 int main(void){
   const double aspect_ratio = 16.0 / 9.0;
-  const int image_width = 768;
+  const int image_width = 384;
   const int image_height = round(image_width / aspect_ratio);
 
   std::cout << "Opening output file...\n";
@@ -19,8 +20,12 @@ int main(void){
   raytracer.samples_per_pixel = 100;
   raytracer.max_ray_recursion_depth = 50;
 
+  std::clock_t start_render = std::clock();
+
   raytracer.render(out_image);
-  
+
+  double duration = ((double) (std::clock() - start_render)) / CLOCKS_PER_SEC;
+  std::cout << "Render time: " << duration << " s \n";
 
   // TODO: Write more tests?
   // Test
