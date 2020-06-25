@@ -1,5 +1,5 @@
-#ifndef RTWEEKEND_UTILS_HPP
-#define RTWEEKEND_UTILS_HPP
+#ifndef RTAVIS_UTILS_HPP
+#define RTAVIS_UTILS_HPP
 
 #include <cmath>
 #include <cstdlib>
