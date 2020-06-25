@@ -36,7 +36,7 @@ Color ray_color(const Ray &r, HittableList world, int depth)
   struct hit_record hit_rec; 
   if (world.hit(r, 0.001, infinity, hit_rec))
   {
-    Point3 new_target = hit_rec.p + hit_rec.normal + Vec3::random_in_unit_sphere();
+    Point3 new_target = hit_rec.p + hit_rec.normal + Vec3::random_unit_vector();
     return 0.5 * ray_color(Ray(hit_rec.p, new_target - hit_rec.p), world, depth - 1); //The more bounces the darker
   }
   return ray_color_gradient(r);

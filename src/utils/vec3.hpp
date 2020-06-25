@@ -44,6 +44,13 @@ class Vec3{
       return p;
     }
 
+    inline static Vec3 random_unit_vector(){
+      auto a = random_double(0, 2*pi); //random angle on slice
+      auto z = random_double(-1, 1); //random slice
+      auto r = sqrt(1 - z*z); //find radius of slice
+      return Vec3(r*cos(a), r*sin(a), z); //derive x, y from angle and radius of slice
+    }
+
   public:
     double e[3];
 };
