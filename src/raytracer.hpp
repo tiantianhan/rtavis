@@ -41,7 +41,11 @@ private:
 
   HittableList world;
 
+  static const Color shading_error_color;
+
   int initialize();
+  Color ray_color(const Ray &r, HittableList world, int depth);
+  Color ray_color_gradient(const Ray &r);
 };
 
 #endif

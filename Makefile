@@ -9,6 +9,7 @@ CXXFLAGS = -g
 ccsrc = $(wildcard src/*.cpp)\
 		$(wildcard src/utils/*.cpp)\
 		$(wildcard src/hittable/*.cpp)\
+		$(wildcard src/material/*.cpp)\
 		$(wildcard tests/*.cpp)
 obj = $(ccsrc:.cpp=.o)
 target = rtavis.exe

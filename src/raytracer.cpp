@@ -7,27 +7,19 @@
 #include "utils\color.hpp"
 #include "hittable\hittable_list.hpp"
 #include "hittable\sphere.hpp"
+#include "material\lambertian.hpp"
 #include "ray.hpp"
 
-Color ray_color_gradient(const Ray &r)
+const Color Raytracer::shading_error_color = Color(1.0, 0.0, 1.0);
+
+Color Raytracer::ray_color_gradient(const Ray &r)
 {
   Vec3 unit_direction = unit_vector(r.direction());
   double t = 0.5 * (unit_direction.y() + 1.0); // Change y range to [0, 1]
   return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
 }
 
-Color ray_color_sphere(const Ray &r, Sphere sphere)
-{
-  struct hit_record hit_rec; 
-  if (sphere.hit(r, 0, 10000, hit_rec))
-  {
-    Vec3 n = hit_rec.normal;
-    return 0.5 * Color(n.x() + 1, n.y() + 1, n.z() + 1);
-  }
-  return ray_color_gradient(r);
-}
-
-Color ray_color(const Ray &r, HittableList world, int depth)
+Color Raytracer::ray_color(const Ray &r, HittableList world, int depth)
 {
   if(depth <= 0){
     return Color(0, 0, 0); //Rays blocked are shadows
@@ -36,16 +28,28 @@ Color ray_color(const Ray &r, HittableList world, int depth)
   struct hit_record hit_rec; 
   if (world.hit(r, 0.001, infinity, hit_rec))
   {
-    Point3 new_target = hit_rec.p + hit_rec.normal + Vec3::random_unit_vector();
-    return 0.5 * ray_color(Ray(hit_rec.p, new_target - hit_rec.p), world, depth - 1); //The more bounces the darker
+    Ray scattered;
+    Color attenuation;
+
+    if(hit_rec.mat_ptr.use_count() == 0){
+      return shading_error_color;
+    }
+
+    hit_rec.mat_ptr->scatter(r, hit_rec, attenuation, scattered);
+    return attenuation * ray_color(scattered, world, depth - 1); //The more bounces the darker
   }
   return ray_color_gradient(r);
 }
 
 int Raytracer::initialize()
 {
-  world.add(make_shared<Sphere>(Point3(0, 0, -1), 0.5));
-  world.add(make_shared<Sphere>(Point3(0, -100.5, -1), 100)); //Large sphere as ground plane
+  // Red lambert
+  world.add(make_shared<Sphere>(Point3(0, 0, -1), 0.5,
+                                make_shared<Lambertian>(Color(0.7, 0.3, 0.3))));
+
+  // Yellow lambert
+  world.add(make_shared<Sphere>(Point3(0, -100.5, -1), 100, 
+                                make_shared<Lambertian>(Color(0.8, 0.8, 0.0)))); //Large sphere as ground plane
 
   return 0;
 }

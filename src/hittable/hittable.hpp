@@ -3,11 +3,14 @@
 
 #include "..\ray.hpp"
 
+class Material; //Workaround for circular reference
+
 struct hit_record{
     Point3 p;
     Vec3 normal;
     double t;
     bool front_face;
+    shared_ptr<Material> mat_ptr;
 
     inline void set_face_normal(const Ray& r, const Vec3& outward_normal){
         front_face = dot(r.direction(), outward_normal) < 0;
