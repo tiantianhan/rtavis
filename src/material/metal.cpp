@@ -1,9 +1,5 @@
 #include "metal.hpp"
 
-inline Vec3 reflect(const Vec3 v, const Vec3 n){
-    return v + dot(n, v) * -2 * n;
-}
-
 bool Metal::scatter(const Ray& r_in,
                     const hit_record& hit_rec,
                     Color& attenuation,
