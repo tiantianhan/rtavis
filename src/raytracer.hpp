@@ -42,6 +42,7 @@ private:
   HittableList world;
 
   static const Color shading_error_color;
+  static const Color back_face_color;
 
   int initialize();
   Color ray_color(const Ray &r, HittableList world, int depth);

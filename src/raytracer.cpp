@@ -8,9 +8,11 @@
 #include "hittable\hittable_list.hpp"
 #include "hittable\sphere.hpp"
 #include "material\lambertian.hpp"
+#include "material\metal.hpp"
 #include "ray.hpp"
 
 const Color Raytracer::shading_error_color = Color(1.0, 0.0, 1.0);
+const Color Raytracer::back_face_color = Color(0.0, 0.0, 0.0);
 
 Color Raytracer::ray_color_gradient(const Ray &r)
 {
@@ -35,8 +37,11 @@ Color Raytracer::ray_color(const Ray &r, HittableList world, int depth)
       return shading_error_color;
     }
 
-    hit_rec.mat_ptr->scatter(r, hit_rec, attenuation, scattered);
-    return attenuation * ray_color(scattered, world, depth - 1); //The more bounces the darker
+    if(hit_rec.mat_ptr->scatter(r, hit_rec, attenuation, scattered)){
+      return attenuation * ray_color(scattered, world, depth - 1); //The more bounces the darker
+    } else {
+      return back_face_color;
+    }
   }
   return ray_color_gradient(r);
 }
@@ -50,7 +55,11 @@ int Raytracer::initialize()
   // Yellow lambert
   world.add(make_shared<Sphere>(Point3(0, -100.5, -1), 100, 
                                 make_shared<Lambertian>(Color(0.8, 0.8, 0.0)))); //Large sphere as ground plane
-
+  // Metal spheres
+  world.add(make_shared<Sphere>(Point3(1,0,-1), 0.5, 
+                                make_shared<Metal>(Color(0.8, 0.6, 0.2))));
+  world.add(make_shared<Sphere>(Point3(-1,0,-1), 0.5, 
+                                make_shared<Metal>(Color(0.8, 0.8, 0.8))));
   return 0;
 }
 
