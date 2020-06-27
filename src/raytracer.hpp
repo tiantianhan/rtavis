@@ -17,7 +17,7 @@ public:
   , image_height(image_height)
   , aspect_ratio(double(image_width) / image_height)
   , samples_per_pixel(50)
-  , camera(aspect_ratio)
+  , camera(aspect_ratio, 80)
   , max_ray_recursion_depth(25)
   {
     std::cout << "Initializing raytracer...\n";

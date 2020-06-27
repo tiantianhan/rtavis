@@ -2,7 +2,7 @@
 
 void Camera::initialize(){
     origin = Point3(0, 0, 0);
-    viewport_height = 2.0;
+    viewport_height = tan(vfov / 2) * 2;
     viewport_width = viewport_height * aspect_ratio;
     focal_length = 1.0;
 

@@ -7,8 +7,16 @@
 
 class Camera {
     public: 
-    Camera(double aspect = 16.0/9.0){
-        aspect_ratio = aspect;
+    /**
+     * @brief Construct a new Camera object
+     * 
+     * @param aspect Aspect ratio as decimal
+     * @param vertical_fov Vertical field of view in degrees
+     */
+    Camera(double aspect = 16.0/9.0, double vertical_fov = 90)
+    : aspect_ratio(aspect)
+    , vfov(degrees_to_radians(vertical_fov))
+    {
         initialize();
     }
 
@@ -16,6 +24,12 @@ class Camera {
 
     private:
         double aspect_ratio;
+
+        /**
+         * @brief Vertical field of view in radians
+         * 
+         */
+        double vfov;
         Point3 origin;
         double viewport_height;
         double viewport_width;
