@@ -57,9 +57,9 @@ int Raytracer::initialize()
                                 make_shared<Lambertian>(Color(0.8, 0.8, 0.0)))); //Large sphere as ground plane
   // Metal spheres
   world.add(make_shared<Sphere>(Point3(1,0,-1), 0.5, 
-                                make_shared<Metal>(Color(0.8, 0.6, 0.2))));
+                                make_shared<Metal>(Color(0.8, 0.6, 0.2), 1.0)));
   world.add(make_shared<Sphere>(Point3(-1,0,-1), 0.5, 
-                                make_shared<Metal>(Color(0.8, 0.8, 0.8))));
+                                make_shared<Metal>(Color(0.8, 0.8, 0.8), 0.3)));
   return 0;
 }
 

@@ -6,7 +6,10 @@
 class Metal : public Material{
 
     public:
-    Metal(Color albedo) : albedo(albedo) {}
+    Metal(Color albedo, double roughness = 0) 
+    : albedo(albedo) 
+    , roughness(roughness)
+    {}
     virtual bool scatter( const Ray& r_in,
                         const hit_record& rec,
                         Color& attenuation,
@@ -14,6 +17,12 @@ class Metal : public Material{
 
     public:
     Color albedo;
+
+    /**
+     * @brief Value between [0, 1]
+     * 
+     */
+    double roughness;
 };
 
 #endif
