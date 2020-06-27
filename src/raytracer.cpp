@@ -9,6 +9,7 @@
 #include "hittable\sphere.hpp"
 #include "material\lambertian.hpp"
 #include "material\metal.hpp"
+#include "material\dielectric.hpp"
 #include "ray.hpp"
 
 const Color Raytracer::shading_error_color = Color(1.0, 0.0, 1.0);
@@ -58,8 +59,14 @@ int Raytracer::initialize()
   // Metal spheres
   world.add(make_shared<Sphere>(Point3(1,0,-1), 0.5, 
                                 make_shared<Metal>(Color(0.8, 0.6, 0.2), 1.0)));
+  // world.add(make_shared<Sphere>(Point3(-1,0,-1), 0.5, 
+  //                               make_shared<Metal>(Color(0.8, 0.8, 0.8), 0.3)));
+
+  // Glass spheres
   world.add(make_shared<Sphere>(Point3(-1,0,-1), 0.5, 
-                                make_shared<Metal>(Color(0.8, 0.8, 0.8), 0.3)));
+                              make_shared<Dielectric>(1.3)));
+ 
+
   return 0;
 }
 
