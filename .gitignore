@@ -1,5 +1,6 @@
 # Output image files
 *.ppm
+out/*
 
 # Temporary
 *.gch
@@ -8,3 +9,7 @@
 # Executables
 *.exe
 .vscode/*
+
+#Unignore demo subdirctory
+!/demo
+!/demo/**
