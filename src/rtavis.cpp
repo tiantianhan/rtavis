@@ -8,7 +8,7 @@
  * 
  * @copyright https://opensource.org/licenses/MIT
  * 
- * This thing can currently render a sphere.
+ * Loads a file of sphere model information and render as ppm file.
  * 
  */
 #include <iostream>
@@ -19,6 +19,7 @@
 #include "raytracer.hpp"
 #include "utils\timer.hpp"
 
+// Inputs
 struct main_inputs{
   std::string in_file_path;
   size_t image_width;
@@ -29,12 +30,18 @@ struct main_inputs{
   size_t max_ray_recursion_depth;
 };
 
+// Defaults
+const std::string default_input_file = "";
+const std::string default_output_file = "rtavis_out.ppm";
 const double default_aspect_ratio = 16.0 / 9.0;
 const size_t default_samples_per_pixel = 3;
 const size_t default_max_ray_recursion_depth = 10;
 
+// Declarations
 std::ostream& operator<<(std::ostream &out, const main_inputs& inputs);
 bool parse_args(int argc, char *argv[], main_inputs& inputs);
+void print_usage();
+void set_default_args();
 
 int main(int argc, char *argv[]){
   
@@ -42,6 +49,7 @@ int main(int argc, char *argv[]){
   main_inputs inputs;
   bool is_success = parse_args(argc, argv, inputs);
   if(!is_success){
+    print_usage();
     std::cerr << "Error parsing arguments, exiting.\n";
     return 1;
   }
@@ -74,7 +82,6 @@ int main(int argc, char *argv[]){
 }
 
 // Argument parsing helpers
-
 std::ostream& operator<<(std::ostream &out, const main_inputs& inputs){
   return out << "Input file path: " << inputs.in_file_path << "\n"
              << "Output file path: " << inputs.out_file_path << "\n"
@@ -93,12 +100,27 @@ void print_usage(){
               << "[-depth max_ray_recursion_depth]\n";
 }
 
+void set_default_args(main_inputs inputs){
+  inputs.in_file_path = default_input_file;
+  inputs.out_file_path = default_output_file;
+
+  std::cout << "Using default aspect ratio\n";
+  inputs.aspect_ratio = default_aspect_ratio;
+
+  inputs.image_height = round(inputs.image_width / inputs.aspect_ratio);
+
+  inputs.samples_per_pixel = default_samples_per_pixel;
+
+  inputs.max_ray_recursion_depth = default_max_ray_recursion_depth;
+}
+
+//Parse arguments. Returns true if successful and false if not successful.
 bool parse_args(int argc, char *argv[], main_inputs& inputs){
   const int opt_arg_start = 2;
   const int total_arg = 10;
 
+  // Check number of arguments
   if(argc < opt_arg_start || argc > total_arg){
-    print_usage();
     return false;
   }
 
@@ -111,17 +133,7 @@ bool parse_args(int argc, char *argv[], main_inputs& inputs){
   inputs.image_width = temp_width;
 
   // Defaults
-  inputs.in_file_path = "";
-  inputs.out_file_path = "rtavis_output.ppm";
-
-  std::cout << "Using default aspect ratio\n";
-  inputs.aspect_ratio = default_aspect_ratio;
-
-  inputs.image_height = round(inputs.image_width / inputs.aspect_ratio);
-
-  inputs.samples_per_pixel = default_samples_per_pixel;
-
-  inputs.max_ray_recursion_depth = default_max_ray_recursion_depth;
+  set_default_args(inputs);
 
   // Optional arguments
   for(int i = opt_arg_start; i < argc; i+=2){
@@ -149,7 +161,6 @@ bool parse_args(int argc, char *argv[], main_inputs& inputs){
       }
     } else {
         std::cerr << argv[i] << " is not recognized flag\n";
-        print_usage();
         return false;
     }
   }
