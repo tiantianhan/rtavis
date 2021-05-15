@@ -27,7 +27,8 @@ public:
     initialize();
   }
 
-  int load(std::ostream &in_file);
+  int load_default_world();
+  int load(std::ifstream &in_file);
   int render(std::ostream &out_image);
 
   size_t samples_per_pixel;

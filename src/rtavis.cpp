@@ -53,17 +53,34 @@ int main(int argc, char *argv[]){
     std::cerr << "Error parsing arguments, exiting.\n";
     return 1;
   }
-  std::cout << "Got inputs: " << inputs << "\n";
+  std::cout << "Got inputs: \n" << inputs << "\n\n";
 
   // Output file
   std::cout << "Opening output file...\n";
   std::ofstream out_image;
-  out_image.open(inputs.in_file_path);
+  out_image.open(inputs.out_file_path);
+  if(out_image.is_open() == false)
+    std::cout << "Failed to open output file " << inputs.out_file_path << "\n";
+    
+
+  // Input file
+  std::cout << "Opening input file...\n";
+  std::ifstream in_file;
+  in_file.open(inputs.in_file_path);
+  if(in_file.is_open() == false)
+    std::cout << "Failed to open input file " << inputs.in_file_path << "\n";
 
   // Setup raytracer
   Raytracer raytracer(inputs.image_width, inputs.image_height);
   raytracer.samples_per_pixel = inputs.samples_per_pixel;
   raytracer.max_ray_recursion_depth = inputs.max_ray_recursion_depth;
+
+  // Load
+  if(in_file.is_open() == false){
+    raytracer.load_default_world();
+  } else {
+    raytracer.load(in_file);
+  }
 
   // Render
   Timer render_timer;
@@ -75,6 +92,8 @@ int main(int argc, char *argv[]){
   // Test   // TODO: Write more tests?
   // std::cout << "\nTesting...\n";
   // test();
+  in_file.close();
+  out_image.close();
 
   std::cout << "All done.\n";
 
@@ -100,7 +119,7 @@ void print_usage(){
               << "[-depth max_ray_recursion_depth]\n";
 }
 
-void set_default_args(main_inputs inputs){
+void set_default_args(main_inputs &inputs){
   inputs.in_file_path = default_input_file;
   inputs.out_file_path = default_output_file;
 

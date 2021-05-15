@@ -32,7 +32,7 @@ HittableList get_default_world(){
 }
 
 HittableList parse_csv_for_hittable_list(){
-    std::cout << "PARSING parsing csv (WIP) ...";
+    std::cout << "PARSING parsing csv (WIP) ...\n";
     return get_default_world();
 }
 
