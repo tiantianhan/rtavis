@@ -20,9 +20,10 @@
 #include "utils\timer.hpp"
 
 struct main_inputs{
-  char * out_file_path;
+  char * in_file_path;
   size_t image_width;
   size_t image_height;
+  char * out_file_path;
   double aspect_ratio;
   size_t samples_per_pixel;
   size_t max_ray_recursion_depth;
@@ -49,7 +50,7 @@ int main(int argc, char *argv[]){
   // Output file
   std::cout << "Opening output file...\n";
   std::ofstream out_image;
-  out_image.open(inputs.out_file_path);
+  out_image.open(inputs.in_file_path);
 
   // Setup raytracer
   Raytracer raytracer(inputs.image_width, inputs.image_height);
@@ -75,7 +76,7 @@ int main(int argc, char *argv[]){
 // Argument parsing helpers
 
 std::ostream& operator<<(std::ostream &out, const main_inputs& inputs){
-  return out << "Output file path: " << inputs.out_file_path << "\n"
+  return out << "Input file path: " << inputs.in_file_path << "\n"
              << "Image size: " << inputs.image_width << " x "
                                << inputs.image_height << " "
              << "Aspect ratio: " << inputs.aspect_ratio << "\n"
@@ -84,21 +85,21 @@ std::ostream& operator<<(std::ostream &out, const main_inputs& inputs){
 }
 
 void print_usage(){
-    std::cerr << "Usage: rtavis out_file_path image_width "
+    std::cerr << "Usage: rtavis image_width "
+              << "[-i in_file_path]"
+              << "[-o out_file_path]"
               << "[-spp samples_per_pixel] "
               << "[-depth max_ray_recursion_depth]\n";
 }
 
 bool parse_args(int argc, char *argv[], main_inputs& inputs){
-  if(argc < 3 || argc > 7){
+  if(argc < 2 || argc > 10){
     print_usage();
     return false;
   }
 
   // Arguments
-  inputs.out_file_path = argv[1];
-
-  int temp_width = atoi(argv[2]);
+  int temp_width = atoi(argv[1]);
   if(temp_width <= 0){
     std::cerr << "Width should be an integer > 0\n";
     return false;
@@ -106,6 +107,10 @@ bool parse_args(int argc, char *argv[], main_inputs& inputs){
   inputs.image_width = temp_width;
 
   // Defaults
+
+  inputs.in_file_path = NULL;
+  inputs.out_file_path = "rtavis_output.ppm"
+
   std::cout << "Using default aspect ratio\n";
   inputs.aspect_ratio = default_aspect_ratio;
 

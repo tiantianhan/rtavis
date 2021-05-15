@@ -27,6 +27,7 @@ public:
     initialize();
   }
 
+  int load(std::ostream &in_file);
   int render(std::ostream &out_image);
 
   size_t samples_per_pixel;
@@ -47,6 +48,8 @@ private:
   int initialize();
   Color ray_color(const Ray &r, HittableList world, int depth);
   Color ray_color_gradient(const Ray &r);
+
+  int get_default_world();
 };
 
 #endif
