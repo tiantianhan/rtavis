@@ -20,10 +20,10 @@
 #include "utils\timer.hpp"
 
 struct main_inputs{
-  char * in_file_path;
+  std::string in_file_path;
   size_t image_width;
   size_t image_height;
-  char * out_file_path;
+  std::string out_file_path;
   double aspect_ratio;
   size_t samples_per_pixel;
   size_t max_ray_recursion_depth;
@@ -77,6 +77,7 @@ int main(int argc, char *argv[]){
 
 std::ostream& operator<<(std::ostream &out, const main_inputs& inputs){
   return out << "Input file path: " << inputs.in_file_path << "\n"
+             << "Output file path: " << inputs.out_file_path << "\n"
              << "Image size: " << inputs.image_width << " x "
                                << inputs.image_height << " "
              << "Aspect ratio: " << inputs.aspect_ratio << "\n"
@@ -93,7 +94,10 @@ void print_usage(){
 }
 
 bool parse_args(int argc, char *argv[], main_inputs& inputs){
-  if(argc < 2 || argc > 10){
+  const int opt_arg_start = 2;
+  const int total_arg = 10;
+
+  if(argc < opt_arg_start || argc > total_arg){
     print_usage();
     return false;
   }
@@ -107,9 +111,8 @@ bool parse_args(int argc, char *argv[], main_inputs& inputs){
   inputs.image_width = temp_width;
 
   // Defaults
-
-  inputs.in_file_path = NULL;
-  inputs.out_file_path = "rtavis_output.ppm"
+  inputs.in_file_path = "";
+  inputs.out_file_path = "rtavis_output.ppm";
 
   std::cout << "Using default aspect ratio\n";
   inputs.aspect_ratio = default_aspect_ratio;
@@ -121,10 +124,16 @@ bool parse_args(int argc, char *argv[], main_inputs& inputs){
   inputs.max_ray_recursion_depth = default_max_ray_recursion_depth;
 
   // Optional arguments
-  for(int i = 3; i < argc; i+=2){
+  for(int i = opt_arg_start; i < argc; i+=2){
     if((i + 1) >= argc) break;
 
-    if(strcmp(argv[i], "-spp") == 0){
+    if(strcmp(argv[i], "-i") == 0){
+      inputs.in_file_path = std::string(argv[i + 1]);
+    
+    } else if(strcmp(argv[i], "-o") == 0){
+      inputs.out_file_path = std::string(argv[i + 1]);
+      
+    } else if(strcmp(argv[i], "-spp") == 0){
       int temp_smp = atoi(argv[i + 1]);
       if(temp_smp <= 0){
         std::cerr << "Samples per pixel should be an integer >= 1, using default.\n";
