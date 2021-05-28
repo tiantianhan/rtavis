@@ -68,10 +68,8 @@ int Raytracer::load_default_world(){
   // Metal spheres
   world.add(make_shared<Sphere>(Point3(0.6,-0.3,-0.8) + translation, 0.2, 
                                 make_shared<Metal>(Color(37/255.0, 29/255.0, 50/255.0), 1.0)));
-  // world.add(make_shared<Sphere>(Point3(-1,0,-1), 0.5, 
-  //                               make_shared<Metal>(Color(0.8, 0.8, 0.8), 0.3)));
 
-  // Glass spheres
+  //Glass spheres
   world.add(make_shared<Sphere>(Point3(0.3,-0.4,-0.4) + translation, 0.1, 
                               make_shared<Dielectric>(1.3)));
   
@@ -80,9 +78,9 @@ int Raytracer::load_default_world(){
 
 int Raytracer::load(std::ifstream &in_file)
 {
-  std::cout << "Loading... Temporarily using default world...\n";
-  load_default_world();
-  //parse_csv_for_hittable_list();
+  std::cout << "Loading... \n";
+  //load_default_world();
+  world = parse_csv_for_hittable_list(in_file);
   
   return 0;
 }

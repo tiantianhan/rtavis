@@ -1,0 +1,2 @@
+Shape,Position X,Position Y,Position Z,Radius,Material,Color R,Color G,Color B,Material Parameter
+Sphere,0,0,-1.6,0.5,Lambertian,0.6745098039,0.2156862745,0.3019607843,0

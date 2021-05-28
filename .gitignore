@@ -1,3 +1,6 @@
+# Input image files
+models/*
+
 # Output image files
 *.ppm
 out/*

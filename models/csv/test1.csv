@@ -1,5 +1,0 @@
-Shape,Position X,Position Y,Position Z,Radius,Material,Color R,Color G,Color B,Material Parameter
-Sphere,0,0,-1.6,0.5,Lambertian,0.6745098039,0.2156862745,0.3019607843,0
-Sphere,0,-100.5,-1.6,100,Lambertian,0.9529411765,0.8156862745,0.6901960784,0
-Sphere,0.6,-0.3,-2.4,0.2,Metal,0.1450980392,0.1137254902,0.1960784314,1
-Sphere,0.3,-0.4,-2,0.1,Dielectric,0,0,0,1.3
