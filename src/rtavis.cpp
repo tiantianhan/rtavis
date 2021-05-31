@@ -3,8 +3,8 @@
  * @author tina
  * @brief Raytracer practice project based on the "Raytracing in One Weekend" 
  * series by Peter Shirley https://raytracing.github.io/
- * @version 0.1
- * @date 2020-06-25
+ * @version 0.2
+ * @date 2021-05-30
  * 
  * @copyright https://opensource.org/licenses/MIT
  * 

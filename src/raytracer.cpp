@@ -79,7 +79,6 @@ int Raytracer::load_default_world(){
 int Raytracer::load(std::ifstream &in_file)
 {
   std::cout << "Loading... \n";
-  //load_default_world();
   world = parse_csv_for_hittable_list(in_file);
   
   return 0;
@@ -123,4 +122,3 @@ int Raytracer::render(std::ostream &out_image)
   std::cout << "\nDone.\n";
   return 0;
 }
-

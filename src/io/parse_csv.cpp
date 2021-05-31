@@ -55,8 +55,6 @@ HittableList parse_csv_for_hittable_list(std::ifstream &input_file){
     std::string row;
     HittableList world;
 
-    //std::getline(input_file, row);
-
     while(std::getline(input_file, row)){
       std::stringstream row_stream;
       row_stream.str(row);
@@ -65,11 +63,11 @@ HittableList parse_csv_for_hittable_list(std::ifstream &input_file){
       while(row_stream.good()){
         std::getline(row_stream, cell, ',');
         split_row.push_back(cell);
-        std::cout << "Got cell " << cell << "\n";
+        //std::cout << "Got cell " << cell << "\n";
       }
-      std::cout << "Got row.\n";
+      //std::cout << "Got row.\n";
       if(split_row[col_shape].compare("Sphere") == 0){
-        std::cout << "Adding row.\n";
+        //std::cout << "Adding row.\n";
         world.add(parse_sphere(split_row));
       }
     }
@@ -79,7 +77,6 @@ HittableList parse_csv_for_hittable_list(std::ifstream &input_file){
 
 shared_ptr<Sphere> parse_sphere(std::vector<std::string> row){
   Sphere sphere;
-  std::cout << "Adding row col pos x: " + row[col_pos_x] + "\n";
   double pos_x = std::stod(row[col_pos_x]);
   double pos_y = std::stod(row[col_pos_y]);
   double pos_z = std::stod(row[col_pos_z]);
