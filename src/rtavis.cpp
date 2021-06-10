@@ -86,13 +86,13 @@ int main(int argc, char *argv[]){
   // Render
   Timer render_timer;
 
-  // raytracer.render(out_image);
+  raytracer.render(out_image);
 
-  // std::cout << "Render time: " << render_timer << "\n";
+  std::cout << "Render time: " << render_timer << "\n";
 
   // Test   // TODO: Write more tests?
-  std::cout << "\nTesting load obj file...\n";
-  tiny_obj_loader_test(inputs.in_file_path);
+  //std::cout << "\nTesting load obj file...\n";
+  //tiny_obj_loader_test(inputs.in_file_path);
   // test();
 
   in_file.close();
