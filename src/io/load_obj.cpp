@@ -2,7 +2,6 @@
 #include "load_obj.hpp"
 #include <iostream>
 
-
 tinyobj::ObjReader getReader(std::string inputfile){
     tinyobj::ObjReaderConfig reader_config;
     reader_config.mtl_search_path = ""; //search path of object file for materials
