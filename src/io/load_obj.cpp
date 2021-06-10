@@ -1,12 +1,11 @@
 #define TINYOBJLOADER_IMPLEMENTATION // define this in only *one* .cc
 #include "load_obj.hpp"
 #include <iostream>
-#include "tiny_obj_loader.h"
 
 
-int tiny_obj_loader_test(std::string inputfile){
+tinyobj::ObjReader getReader(std::string inputfile){
     tinyobj::ObjReaderConfig reader_config;
-    reader_config.mtl_search_path = "./"; // Path to material files
+    reader_config.mtl_search_path = ""; //search path of object file for materials
 
     tinyobj::ObjReader reader;
 
@@ -20,6 +19,12 @@ int tiny_obj_loader_test(std::string inputfile){
     if (!reader.Warning().empty()) {
     std::cout << "TinyObjReader: " << reader.Warning();
     }
+
+    return reader;
+}
+
+int tiny_obj_loader_test(std::string inputfile){
+    tinyobj::ObjReader reader = getReader(inputfile);
 
     auto& attrib = reader.GetAttrib();
     auto& shapes = reader.GetShapes();
